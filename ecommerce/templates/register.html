@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    body {
+      background-color: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin-top: 20px;
+    }
+    .registration-form {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-title {
+      margin-bottom: 30px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 2rem;
+      color: #007bff;
+    }
+    .form-control {
+      margin-bottom: 20px;
+    }
+    .already-account {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .already-account a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .already-account a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+<div class="registration-form col-md-4">
+    <h1 class="form-title" style="margin-top: 50px;">User Registration</h1>
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" name="name" placeholder="Enter your name">
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" name="email" placeholder="Enter your email">
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" name="password" placeholder="Enter your password">
+      </div>
+
+      <div class="mb-3">
+        <label for="confirm-password" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control"  placeholder="Confirm your password">
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+
+      <div class="already-account">
+        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+      </div>
+    </form>
+  </div>
+
+{% endblock %}

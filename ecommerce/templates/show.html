@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    body {
+        background-color: #f7f7f7;
+    }
+
+    /* Styling for the product card */
+    .card {
+        border: none;
+        margin-top: 25px;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Styling for card image */
+    .card-img-top {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    /* Styling for product title */
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    /* Custom button styling */
+    .btn-custom {
+        background-color: #ff5c5c;
+        color: white;
+        font-weight: bold;
+    }
+
+    .btn-custom:hover {
+        background-color: #ff3333;
+    }
+
+    /* Responsive design for mobile */
+    @media (max-width: 768px) {
+        .card-img-top {
+            height: 180px;
+        }
+    }
+</style>
+
+<div class="container mt-5">
+    
+    <!-- Displaying success message -->
+    {% if messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+
+    <!-- Product Grid -->
+    <div class="row">
+        {% for product in products %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ product.img.url }}" class="card-img-top" alt="Product Image">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.desc|truncatewords:15 }}</p>
+                        <p class="card-text"><strong>₹{{ product.price }}</strong></p>
+                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-custom w-100 mt-3">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}

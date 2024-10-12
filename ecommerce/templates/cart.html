@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="container mt-5">
+        <br>
+        <h2>Your Cart</h2>
+
+        {% if cart_items %}
+            <form method="POST" action="{% url 'update_cart' %}">
+                {% csrf_token %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Image</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart_items %}
+                            <tr>
+                                <td>{{ item.product.name }}</td>
+                                <td><img src="{{ item.product.img.url }}" style="width: 100px; height: 100px;"></td>
+                                <td>{{ item.product.price }}</td>
+                                <td>
+                                    <input type="number" name="{{ item.product.id }}" value="{{ item.quantity }}" min="1" class="form-control" style="width: 80px;" onchange="updateItemTotal({{ item.product.id }}, {{ item.product.price }})">
+                                </td>
+                                <td id="total-{{ item.product.id }}">{{ item.product.price }}</td>
+                                <td>
+                                    <a href="{% url 'remove_from_cart' item.product.id %}" class="btn btn-danger">Remove</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between">
+                    <h4>Total: <span id="cart-total">{{ cart_total }}</span></h4>
+                    <button type="submit" class="btn btn-primary">Make Payment</button>
+                </div>
+            </form>
+        {% else %}
+            <div class="alert alert-info">Your cart is empty.</div>
+        {% endif %}
+    </div>
+
+    
+    <script>
+        function updateItemTotal(productId, price) {
+            const quantityInput = document.querySelector(`input[name="${productId}"]`);
+            const quantity = parseInt(quantityInput.value);
+            const itemTotalElement = document.getElementById(`total-${productId}`);
+            const cartTotalElement = document.getElementById('cart-total');
+            
+
+            const itemTotal = price * quantity;
+            itemTotalElement.textContent = itemTotal.toFixed(2);
+            
+
+            let cartTotal = 0;
+            document.querySelectorAll('td[id^="total-"]').forEach(function (item) {
+                cartTotal += parseFloat(item.textContent);
+            });
+            cartTotalElement.textContent = cartTotal.toFixed(2);
+        }
+    </script>
+{% endblock %}
