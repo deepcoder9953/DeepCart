@@ -7,7 +7,6 @@
         background-color: #f7f7f7;
     }
 
-    /* Styling for the product card */
     .card {
         border: none;
         margin-top: 25px;
@@ -21,7 +20,6 @@
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
 
-    /* Styling for card image */
     .card-img-top {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
@@ -29,13 +27,11 @@
         object-fit: cover;
     }
 
-    /* Styling for product title */
     .card-title {
         font-size: 1.25rem;
         font-weight: 600;
     }
 
-    /* Custom button styling */
     .btn-custom {
         background-color: #ff5c5c;
         color: white;
@@ -46,7 +42,6 @@
         background-color: #ff3333;
     }
 
-    /* Responsive design for mobile */
     @media (max-width: 768px) {
         .card-img-top {
             height: 180px;
@@ -56,9 +51,8 @@
 
 <div class="container mt-5">
     
-    <!-- Displaying success message -->
     {% if messages %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 100px;">
             {% for message in messages %}
                 {{ message }}
             {% endfor %}
@@ -66,7 +60,6 @@
         </div>
     {% endif %}
 
-    <!-- Product Grid -->
     <div class="row">
         {% for product in products %}
             <div class="col-lg-3 col-md-4 col-sm-6 mb-4">

@@ -32,19 +32,17 @@
               <a class="nav-link" href="{% url 'show' %}">Our Products</a>
             </li>
           </ul>
-          <form class="d-flex mt-3" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <form class="d-flex mt-3" role="search" action="{% url 'search' %}" method="GET">
+            <input class="form-control me-2" type="search" placeholder="Search for products" aria-label="Search" name="query">
             <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+        </form>
         </div>
       </div>
     </div>
   </nav>
   
-  <!-- Block content starts here -->
   {% block content %}
   <style>
-    /* General Reset */
 * {
     margin: 0;
     padding: 0;
@@ -61,7 +59,6 @@ body {
     overflow: hidden;
 }
 
-/* Hero Section */
 .hero-container {
     width: 100%;
     height: 100%;
@@ -107,7 +104,6 @@ body {
     background-color: #ff3333;
 }
 
-/* Slider */
 .slider {
     width: 400px;
     height: 300px;
@@ -135,7 +131,6 @@ body {
     object-fit: cover;
 }
 
-/* Animations */
 @keyframes slide {
     0% { transform: translateX(0); }
     33% { transform: translateX(-400px); }
@@ -175,7 +170,6 @@ slides.addEventListener('mouseover', pauseSlider);
 slides.addEventListener('mouseout', resumeSlider);
 
 </script>
-  <!-- Child templates will override or insert content here -->
   <div class="hero-container">
     <div class="hero-content">
         <h1>Welcome to DeepCart</h1>
@@ -185,15 +179,15 @@ slides.addEventListener('mouseout', resumeSlider);
 
     <div class="slider">
         <div class="slides">
-            <!-- Product Image 1 -->
+
             <div class="slide">
                 <img src="https://images.squarespace-cdn.com/content/v1/5a1fac7e914e6b30d737146f/1683652897432-UKUTT07XCKS9NI9NLOXT/228A4750a.jpg" alt="Product 1" height="300" width="400">
             </div>
-            <!-- Product Image 2 -->
+          
             <div class="slide">
                 <img src="https://d31u1j2vbx6ya5.cloudfront.net/gei-assets/uploads/2024/02/Outdoor-product-photography-ideas.jpg" alt="Product 2" height="300" width="400">
             </div>
-            <!-- Product Image 3 -->
+           
             <div class="slide">
                 <img src="https://mondayfriday.co/wp-content/uploads/2020/06/hardcase.jpg" alt="Product 3" height="300" width="400">
             </div>

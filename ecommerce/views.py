@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import Products, Cart, RegisterUser
+from .models import Products, Cart, RegisterUser, ShowProduct
 from .forms import Producatform, UserRegistrationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -181,13 +181,11 @@ def login(request):
 
 def activate(request, uidb64, token):
     try:
-        # Decode user ID from the URL
         uid = urlsafe_base64_decode(uidb64).decode()
         user = get_user_model().objects.get(id=uid)
 
-        # Validate the token
         if default_token_generator.check_token(user, token):
-            user.is_active = True  # Activate the user
+            user.is_active = True  
             user.save()
             messages.success(request, "Your account has been activated. You can now log in.")
             return redirect('login')
@@ -197,3 +195,13 @@ def activate(request, uidb64, token):
     except (TypeError, ValueError, OverflowError, get_user_model().DoesNotExist):
         messages.error(request, "Activation link is invalid.")
         return redirect('login')
+
+def search(request):
+    query = request.GET.get('query') 
+    print(f'Search Query: {query}')
+    if query:
+        products = Products.objects.filter(name__icontains=query)
+    else:
+        cart_items = ShowProduct.objects.all()
+    
+    return render(request, 'search.html', {'cart_items': products, 'query': query})

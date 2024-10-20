@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    .container {
+        margin-top: 100px; 
+        font-weight: 600;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+</style>
+
+<div class="container">
+    {% if cart_items %}
+        <h3>Showing Results for "{{ query }}":</h3>
+        <tr>
+            {% for item in cart_items %}
+            <br>
+            <td><img src="{{ item.img.url }}" style="width: 200px; height: 200px; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;"></td><br><br>
+            <td>{{ item.name }}</td><br>
+            <td>{{ item.desc }}</td><br>
+            <td>₹{{ item.price }}</td>
+            {% endfor %}
+        </tr>
+    {% else %}
+        <p>No products found in your cart.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
